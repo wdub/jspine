@@ -8,42 +8,6 @@
 (function (z) {
     'use strict';
 
-    function jSpine(params) {
-        return new Lib(params);
-    }
-
-    function Lib(selector) {
-        var els, chr, i;
-        if (selector === undefined) {
-            return;
-        }
-        if (typeof selector === 'string') {
-            chr = selector.substr(1);
-            if (selector[0] === '#') {
-                els = document.getElementById(chr);
-                this[0] = els;
-                this.length = 1;
-                return this;
-            }
-            els = document.getElementsByClassName(chr);
-        } else if (selector.length) {
-            els = selector;
-        } else {
-            els = [selector];
-        }
-
-        for (i = 0; i < els.length; i++) {
-            this[i] = els[i];
-        }
-        this.length = els.length;
-        return this;
-    }
-
-    function XhrObj() {
-        var Xmlxhr = window.XMLHttpRequest;
-        return Xmlxhr ? new Xmlxhr() : new window.ActiveXObject('Microsoft.XMLHTTP');
-    }
-
      jSpine.fn = Lib.prototype = {
         forEach: function (callback) {
             this.map(callback);
@@ -59,71 +23,6 @@
         mapOne: function (callback) {
             var m = this.map(callback);
             return m.length > 1 ? m : m[0];
-        },
-        xobj: function () {
-            return XhrObj();
-        },
-        xhr: function (params, url, callback) {
-            var xhr = XhrObj();
-            return (function () {
-                xhr.open('POST', url, true);
-                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                xhr.setRequestHeader('X_REQUESTED_WITH', 'xmlhttprequest');
-                xhr.onreadystatechange = function () {
-                    if (this.readyState === 4) {
-                        if (this.status === 200) {
-                            callback(this.responseText);
-                        }
-                    }
-                };
-                xhr.onerror = function () {
-                    //console.error('Network error');
-                };
-                xhr.send(params);
-            }());
-
-        },
-        formData: function () {
-            var data = '',
-                param = '',
-                elem,
-                nodeName,
-                option,
-                i, j;
-
-            for (i = 0; i < this[0].elements.length; i++) {
-                elem = this[0].elements[i];
-                if (elem.name) {
-                    nodeName = elem.nodeName.toLowerCase();
-                    param = '';
-
-                    if (nodeName === 'input' && (elem.type === 'checkbox' || elem.type === 'radio')) {
-                        if (!elem.checked) {
-                            continue;
-                        }
-                    }
-                    if (nodeName === 'select') {
-                        for (j = 0; j < elem.options.length; j++) {
-                            option = elem.options[j];
-                            if (option.selected) {
-                                var value = option.value;
-                                if (param !== '') {
-                                    param += '&'
-                                }
-                                param += encodeURIComponent(elem.name) + '=' + encodeURIComponent(value)
-                            }
-                        }
-                    } else {
-                        param = encodeURIComponent(elem.name) + '=' + encodeURIComponent(elem.value)
-                    }
-
-                    if (data !== '') {
-                        data += '&'
-                    }
-                    data += param
-                }
-            }
-            return data;
         },
         text: function (text) {
             if (text !== undefined) {
@@ -376,7 +275,7 @@
                 });
             };
 
-        })(),
+        }()),
         off: (function () {
             if (document.removeEventListener) {
                 return function (evt, fn) {
@@ -397,8 +296,108 @@
                     el['on' + evt] = null;
                 });
             };
-        }())
+        }()),
+         xobj: function () {
+             return XhrObj();
+         },
+         xhr: function (params, url, callback) {
+             var xhr = XhrObj();
+             return (function () {
+                 xhr.open('POST', url, true);
+                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                 xhr.setRequestHeader('X_REQUESTED_WITH', 'xmlhttprequest');
+                 xhr.onreadystatechange = function () {
+                     if (this.readyState === 4) {
+                         if (this.status === 200) {
+                             callback(this.responseText);
+                         }
+                     }
+                 };
+                 xhr.onerror = function () {
+                     //console.error('Network error');
+                 };
+                 xhr.send(params);
+             }());
+         },
+         formData: function () {
+             var data = '',
+                 param = '',
+                 elem,
+                 nodeName,
+                 option,
+                 i, j;
+
+             for (i = 0; i < this[0].elements.length; i++) {
+                 elem = this[0].elements[i];
+                 if (elem.name) {
+                     nodeName = elem.nodeName.toLowerCase();
+                     param = '';
+
+                     if (nodeName === 'input' && (elem.type === 'checkbox' || elem.type === 'radio')) {
+                         if (!elem.checked) {
+                             continue;
+                         }
+                     }
+                     if (nodeName === 'select') {
+                         for (j = 0; j < elem.options.length; j++) {
+                             option = elem.options[j];
+                             if (option.selected) {
+                                 var value = option.value;
+                                 if (param !== '') {
+                                     param += '&'
+                                 }
+                                 param += encodeURIComponent(elem.name) + '=' + encodeURIComponent(value)
+                             }
+                         }
+                     } else {
+                         param = encodeURIComponent(elem.name) + '=' + encodeURIComponent(elem.value)
+                     }
+
+                     if (data !== '') {
+                         data += '&'
+                     }
+                     data += param
+                 }
+             }
+             return data;
+         }
     };
+
+    function jSpine(params) {
+        return new Lib(params);
+    }
+
+    function Lib(selector) {
+        var els, chr, i;
+        if (selector === undefined) {
+            return;
+        }
+        if (typeof selector === 'string') {
+            chr = selector.substr(1);
+            if (selector[0] === '#') {
+                els = document.getElementById(chr);
+                this[0] = els;
+                this.length = 1;
+                return this;
+            }
+            els = document.getElementsByClassName(chr);
+        } else if (selector.length) {
+            els = selector;
+        } else {
+            els = [selector];
+        }
+
+        for (i = 0; i < els.length; i++) {
+            this[i] = els[i];
+        }
+        this.length = els.length;
+        return this;
+    }
+
+    function XhrObj() {
+        var Xmlxhr = window.XMLHttpRequest;
+        return Xmlxhr ? new Xmlxhr() : new window.ActiveXObject('Microsoft.XMLHTTP');
+    }
 
     z.$ = jSpine;
 
