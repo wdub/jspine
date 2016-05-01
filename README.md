@@ -14,7 +14,6 @@ function(){
   testDiv.addClass('first second');
 }
 ```
-
 <h5>Event handling</h5>
 ```html
 <button class="toggle">Toggle</button>
@@ -30,30 +29,30 @@ $('.toggle').on('click', function(e){
 ```
 
 <h3>Attributes</h3>
-* text          - set the text contents or get the text content of matched elements
-* html          - set the HTML contents or get the HTML content of an element
-* hasClass      - check whether any of the matched elements are assigned the given class
-* addClass      - adds one or more classes
-* removeClass   - remove one or more classes
-* toggleClass   - adds or remove the specified class
-* attr          - get the value of an attribute or set an attribute
-* append        - insert a new element at the end
-* prepend       - insert a new element at the beginning
-* toggle        - show or hide an element
-* isVisible     - check if an element is visible
-* show          - display an element
-* hide          - hide an element
-* remove        - remove one or more elements
-* newel         - create a new element
-* empty         - remove all child nodes
-* loader        - display or hide an animation(GIF or CSS keyframes required)
-* message       - display or hide a custom message
-* data          - get or set data attribute value
-* on            - attach an event handler function to one or more elements
-* off           - remove an event handler
-* xobj          - returns the XmlHttpRequest Object so it can be used for file uploads or other purposes
-* xhr           - perform an asynchronous HTTP request
-* formData      - encode and return a set of form elements
+* __text__          - set the text contents or get the text content of matched elements
+* __html__          - set the HTML contents or get the HTML content of an element
+* __hasClass__      - check whether any of the matched elements are assigned the given class
+* __addClass__      - adds one or more classes
+* __removeClass__   - remove one or more classes
+* __toggleClass__   - adds or remove the specified class
+* __attr__          - get the value of an attribute or set an attribute
+* __append__        - insert a new element at the end
+* __prepend__       - insert a new element at the beginning
+* __toggle__        - show or hide an element
+* __isVisible__     - check if an element is visible
+* __show__          - display an element
+* __hide__          - hide an element
+* __remove__        - remove one or more elements
+* __newel__         - create a new element
+* __empty__         - remove all child nodes
+* __loader__        - display or hide an animation(GIF or CSS keyframes required)
+* __message__       - display or hide a custom message
+* __data__          - get or set data attribute value
+* __on__            - attach an event handler function to one or more elements
+* __off__           - remove an event handler
+* __xobj__          - returns the XmlHttpRequest Object so it can be used for file uploads or other purposes
+* __xhr__           - perform an asynchronous HTTP request
+* __formData__      - encode and return a set of form elements
 
 <h3>Demo</h3>
 [jSpine examples](http://jspine.techlabs.ro/)
