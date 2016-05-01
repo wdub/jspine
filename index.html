@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>jSpine by wdub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">jSpine</h1>
+      <h2 class="project-tagline">Yet another fast and lightweight Javascript library</h2>
+      <a href="https://github.com/wdub/jspine" class="btn">View on GitHub</a>
+      <a href="https://github.com/wdub/jspine/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/wdub/jspine/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h1>
+
+<h5>
+<a id="dom-objects-manipulation" class="anchor" href="#dom-objects-manipulation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DOM objects manipulation</h5>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>display:none<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span>(){
+  <span class="pl-k">var</span> testDiv <span class="pl-k">=</span> <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>.test<span class="pl-pds">'</span></span>);
+  <span class="pl-smi">testDiv</span>.<span class="pl-c1">text</span>(<span class="pl-s"><span class="pl-pds">'</span>Populate div#test<span class="pl-pds">'</span></span>).<span class="pl-en">show</span>();
+  <span class="pl-c">// now we can add one or more classes</span>
+  <span class="pl-smi">testDiv</span>.<span class="pl-en">addClass</span>(<span class="pl-s"><span class="pl-pds">'</span>first second<span class="pl-pds">'</span></span>);
+}</pre></div>
+
+<h5>
+<a id="event-handling" class="anchor" href="#event-handling" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Event handling</h5>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>toggle<span class="pl-pds">"</span></span>&gt;Toggle&lt;/<span class="pl-ent">button</span>&gt;
+&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span>&gt;
+  This will be shown/hidden
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>.toggle<span class="pl-pds">'</span></span>).<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">e</span>){
+  <span class="pl-smi">e</span>.<span class="pl-en">preventDefault</span>();
+  <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>.content<span class="pl-pds">'</span></span>).<span class="pl-en">toggle</span>();
+}</pre></div>
+
+<h3>
+<a id="attributes" class="anchor" href="#attributes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Attributes</h3>
+
+<ul>
+<li>
+<strong>text</strong>          - set the text contents or get the text content of matched elements</li>
+<li>
+<strong>html</strong>          - set the HTML contents or get the HTML content of an element</li>
+<li>
+<strong>hasClass</strong>      - check whether any of the matched elements are assigned the given class</li>
+<li>
+<strong>addClass</strong>      - adds one or more classes</li>
+<li>
+<strong>removeClass</strong>   - remove one or more classes</li>
+<li>
+<strong>toggleClass</strong>   - adds or remove the specified class</li>
+<li>
+<strong>attr</strong>          - get the value of an attribute or set an attribute</li>
+<li>
+<strong>append</strong>        - insert a new element at the end</li>
+<li>
+<strong>prepend</strong>       - insert a new element at the beginning</li>
+<li>
+<strong>toggle</strong>        - show or hide an element</li>
+<li>
+<strong>isVisible</strong>     - check if an element is visible</li>
+<li>
+<strong>show</strong>          - display an element</li>
+<li>
+<strong>hide</strong>          - hide an element</li>
+<li>
+<strong>remove</strong>        - remove one or more elements</li>
+<li>
+<strong>newel</strong>         - create a new element</li>
+<li>
+<strong>empty</strong>         - remove all child nodes</li>
+<li>
+<strong>loader</strong>        - display or hide an animation(GIF or CSS keyframes required)</li>
+<li>
+<strong>message</strong>       - display or hide a custom message</li>
+<li>
+<strong>data</strong>          - get or set data attribute value</li>
+<li>
+<strong>on</strong>            - attach an event handler function to one or more elements</li>
+<li>
+<strong>off</strong>           - remove an event handler</li>
+<li>
+<strong>xobj</strong>          - returns the XmlHttpRequest Object so it can be used for file uploads or other purposes</li>
+<li>
+<strong>xhr</strong>           - perform an asynchronous HTTP request</li>
+<li>
+<strong>formData</strong>      - encode and return a set of form elements</li>
+</ul>
+
+<h1>
+<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo</h1>
+
+<p><a href="http://jspine.techlabs.ro/">jSpine examples</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/wdub/jspine">jSpine</a> is maintained by <a href="https://github.com/wdub">wdub</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
