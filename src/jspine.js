@@ -2,6 +2,7 @@
  /* Author : Andreti Enache  - techlabs.ro
  /* Licence : GNU GENERAL PUBLIC LICENSE Version 3
  /* GitHub : github.com/wdub/jspine
+ /* Demo : jspine.techlabs.ro
  /* Version : v1.3.1
  */
 (function (z) {
