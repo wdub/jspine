@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+}
+.clear {
+    clear: both;
+    margin: 0;
+    display: block;
+}
+#buttons {
+    display: inline-block;
+}
+.mylist {
+    display: none;
+}

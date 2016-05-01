@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>jSpine examples</title>
+    <link rel="stylesheet" href="./css/style.css"/>
+    <script src="./js/jspine.js"></script>
+</head>
+<body>
+<div id="buttons">
+    <button class="btn btn-show">Show list</button>
+    <button class="btn btn-hide">Hide list</button>
+    <button class="btn btn-toggle">Toggle list</button>
+</div>
+
+<div class="clear"></div>
+
+<div class="mylist">
+    <ul>
+        <li class="list l1">L1</li>
+        <li class="list l2">L2</li>
+        <li class="list l3">L3</li>
+        <li class="list l4">L4</li>
+    </ul>
+</div>
+
+<script>
+    (function () {
+        var myList = $('.mylist');
+
+        $('.btn-show').on('click', function (ev) {
+            ev.preventDefault();
+            myList.show();
+        });
+
+        $('.btn-hide').on('click', function (ev) {
+            ev.preventDefault();
+            myList.hide();
+        });
+
+        $('.btn-toggle').on('click', function (ev) {
+            ev.preventDefault();
+            myList.toggle();
+        });
+
+    }());
+</script>
+</body>
+</html>
