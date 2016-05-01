@@ -47,7 +47,17 @@
   <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>.content<span class="pl-pds">'</span></span>).<span class="pl-en">toggle</span>();
 });</pre></div>
 
-<hr>
+<h4>
+<a id="xmlhttprequest" class="anchor" href="#xmlhttprequest" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>XMLHttpRequest</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn custom xhr-btn<span class="pl-pds">"</span></span>&gt;Get response&lt;/<span class="pl-ent">button</span>&gt;
+&lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>response<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">p</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>.xhr-btn<span class="pl-pds">'</span></span>).<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">e</span>) {
+  <span class="pl-en">$</span>().<span class="pl-en">xhr</span>(<span class="pl-s"><span class="pl-pds">'</span>param=demo<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>./json.php<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">response</span>) {
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(response);
+  })
+});</pre></div>
 
 <h1>
 <a id="attributes" class="anchor" href="#attributes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Attributes</h1>
