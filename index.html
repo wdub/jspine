@@ -47,6 +47,28 @@
   <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>.content<span class="pl-pds">'</span></span>).<span class="pl-en">toggle</span>();
 });</pre></div>
 
+<p>Event delegation</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">ul</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>container<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>l1<span class="pl-pds">"</span></span>&gt;L1&lt;/<span class="pl-ent">li</span>&gt;
+    &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>l2<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">span</span>&gt;Title 1&lt;/<span class="pl-ent">span</span>&gt;
+    &lt;/<span class="pl-ent">li</span>&gt;
+    &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>l3<span class="pl-pds">"</span></span>&gt;
+        &lt;<span class="pl-ent">div</span>&gt;
+            &lt;<span class="pl-ent">strong</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>&gt;Title 2&lt;/<span class="pl-ent">strong</span>&gt;
+            &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sub sub1<span class="pl-pds">"</span></span>&gt;Subtitle 1&lt;/<span class="pl-ent">p</span>&gt;
+            &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sub sub2<span class="pl-pds">"</span></span>&gt;Subtitle 2&lt;/<span class="pl-ent">p</span>&gt;
+        &lt;/<span class="pl-ent">div</span>&gt;
+    &lt;/<span class="pl-ent">li</span>&gt;
+    &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>l4<span class="pl-pds">"</span></span>&gt;L4&lt;/<span class="pl-ent">li</span>&gt;
+&lt;/<span class="pl-ent">ul</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>.container<span class="pl-pds">'</span></span>).<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>.sub<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">ev</span>, <span class="pl-smi">clicked</span>) {
+    <span class="pl-smi">ev</span>.<span class="pl-en">preventDefault</span>();
+    <span class="pl-en">$</span>(clicked).<span class="pl-en">hide</span>();
+});</pre></div>
+
 <h4>
 <a id="xmlhttprequest" class="anchor" href="#xmlhttprequest" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>XMLHttpRequest</h4>
 
