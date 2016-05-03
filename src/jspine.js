@@ -3,7 +3,7 @@
  /* Licence : GNU GENERAL PUBLIC LICENSE Version 3
  /* GitHub : github.com/wdub/jspine
  /* Demo : jspine.techlabs.ro
- /* Version : v1.3.2
+ /* Version : v1.3.3
  */
 (function (z) {
     'use strict';
@@ -296,30 +296,31 @@
         on: (function () {
             if (document.addEventListener) {
                 return function (evt, dgt, fn) {
-                    var cb, nme;
-
+                    var nme;
                     var delegate = function (ev) {
                         var tg = ev.target,
                             cs;
 
                         if (typeof dgt !== 'string') {
                             return dgt(ev, tg);
-                        } else {
-                            cb = fn;
-                            nme = dgt.substr(1);
-                            if (dgt[0] === '.') {
-                                cs = tg.className.split(' ');
-                            } else if (dgt[0] === '#') {
-                                cs = tg.id;
-                            } else {
-                                cs = tg.nodeName.toLowerCase();
-                                nme = dgt.substr(0);
-                            }
                         }
 
-                        if (cs.indexOf(nme) !== -1) {
-                            return cb(ev, tg);
+                        nme = dgt.substr(1);
+                        if (dgt[0] === '.') {
+                            cs = tg.className.split(' ');
+                        } else if (dgt[0] === '#') {
+                            cs = tg.id;
+                        } else {
+                            cs = tg.nodeName.toLowerCase();
+                            nme = dgt.substr(0);
                         }
+
+                        if (cs.indexOf(nme) === -1) {
+                            ev.preventDefault();
+                            ev.stopPropagation();
+                            return;
+                        }
+                        return fn(ev, tg);
                     };
 
                     return this.forEach(function (el) {
