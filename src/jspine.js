@@ -303,7 +303,7 @@
                         nme = dgt.substr(1)
                     } else {
                         cb = dgt;
-                        return cb(ev);
+                        return cb(evt);
                     }
 
                     var delegate = function (ev) {
