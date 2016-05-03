@@ -1,4 +1,4 @@
-<h1>jSpine</h1>
+<h1>jSpine v1.3.2</h1>
 Yet another fast and lightweight Javascript library.
 
 <h3>Usage</h3>
@@ -9,7 +9,7 @@ Yet another fast and lightweight Javascript library.
 ```javascript
 function(){
   var testDiv = $('.test');
-  testDiv.text('Populate div#test').show();
+  testDiv.text('Content...').show();
   // now we can add one or more classes
   testDiv.addClass('first second');
 }
@@ -27,8 +27,44 @@ $('.toggle').on('click', function(e){
   $('.content').toggle();
 }
 ```
+<h5>Event delegation</h5>
+```html
+<ul class="container">
+    <li class="l1">L1</li>
+    <li class="l2">
+        <span>Title 1</span>
+    </li>
+    <li class="l3">
+        <div>
+            <strong id="title">Title 2</strong>
+            <p class="sub sub1">Subtitle 1</p>
+            <p class="sub sub2">Subtitle 2</p>
+        </div>
+    </li>
+    <li class="l4">L4</li>
+</ul>
+```
+```javascript
+$('.container').on('click', '.sub', function (ev, clicked) {
+    ev.preventDefault();
+    $(clicked).hide();
+});
+```
 
-<h3>Attributes</h3>
+<h5>XMLHttpRequest</h5>
+```html
+<button class="xhr-btn">Get response</button>
+<p class="response"></p>
+```
+```javascript
+$('.xhr-btn').on('click', function (e) {
+  $().xhr('param=demo', './json.php', function (response) {
+    $('.response').text(response);
+  })
+});
+```
+
+### Attributes
 * __text__          - set the text contents or get the text content of matched elements
 * __html__          - set the HTML contents or get the HTML content of an element
 * __hasClass__      - check whether any of the matched elements are assigned the given class
