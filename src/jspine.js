@@ -1,14 +1,14 @@
 /*
- /* Author : Andreti Enache  - techlabs.ro
+ /* Author : Andreti Enache - techlabs.ro
  /* Licence : GNU GENERAL PUBLIC LICENSE Version 3
  /* GitHub : github.com/wdub/jspine
  /* Demo : jspine.techlabs.ro
- /* Version : v1.3.1
+ /* Version : v1.3.2
  */
 (function (z) {
     'use strict';
 
-     jSpine.fn = Lib.prototype = {
+    jSpine.fn = Sel.prototype = {
         forEach: function (callback) {
             this.map(callback);
             return this;
@@ -251,14 +251,84 @@
                 el.dataset[dk] = dv;
             });
         },
+        formData: function () {
+            var data = '',
+                param = '',
+                elem,
+                nodeName,
+                option,
+                i, j;
+
+            for (i = 0; i < this[0].elements.length; i++) {
+                elem = this[0].elements[i];
+                if (elem.name) {
+                    nodeName = elem.nodeName.toLowerCase();
+                    param = '';
+
+                    if (nodeName === 'input' && (elem.type === 'checkbox' || elem.type === 'radio')) {
+                        if (!elem.checked) {
+                            continue;
+                        }
+                    }
+                    if (nodeName === 'select') {
+                        for (j = 0; j < elem.options.length; j++) {
+                            option = elem.options[j];
+                            if (option.selected) {
+                                var value = option.value;
+                                if (param !== '') {
+                                    param += '&'
+                                }
+                                param += encodeURIComponent(elem.name) + '=' + encodeURIComponent(value)
+                            }
+                        }
+                    } else {
+                        param = encodeURIComponent(elem.name) + '=' + encodeURIComponent(elem.value)
+                    }
+
+                    if (data !== '') {
+                        data += '&'
+                    }
+                    data += param
+                }
+            }
+            return data;
+        },
         on: (function () {
             if (document.addEventListener) {
-                return function (evt, fn) {
+                return function (evt, dgt, fn) {
+                    var cb, nme;
+
+                    if (typeof dgt === 'string') {
+                        cb = fn;
+                        nme = dgt.substr(1)
+                    } else {
+                        cb = dgt;
+                        return cb(ev);
+                    }
+
+                    var delegate = function (ev) {
+                        var tg = ev.target,
+                            cs;
+
+                        if (dgt[0] === '.') {
+                            cs = tg.className.split(' ');
+                        } else if (dgt[0] === '#') {
+                            cs = tg.id;
+                        } else {
+                            cs = tg.nodeName.toLowerCase();
+                            nme = dgt.substr(0);
+                        }
+
+                        if (cs.indexOf(nme) !== -1) {
+                            return cb(ev, tg);
+                        }
+                    };
+
                     return this.forEach(function (el) {
                         if (el === null) {
                             return;
                         }
-                        el.addEventListener(evt, fn, false);
+                        el.addEventListener(evt, delegate, false);
                     });
                 };
             }
@@ -297,94 +367,52 @@
                 });
             };
         }()),
-         xobj: function () {
-             return XhrObj();
-         },
-         xhr: function (params, url, callback) {
-             var xhr = XhrObj();
-             return (function () {
-                 xhr.open('POST', url, true);
-                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                 xhr.setRequestHeader('X_REQUESTED_WITH', 'xmlhttprequest');
-                 xhr.onreadystatechange = function () {
-                     if (this.readyState === 4) {
-                         if (this.status === 200) {
-                             callback(this.responseText);
-                         }
-                     }
-                 };
-                 xhr.onerror = function () {
-                     //console.error('Network error');
-                 };
-                 xhr.send(params);
-             }());
-         },
-         formData: function () {
-             var data = '',
-                 param = '',
-                 elem,
-                 nodeName,
-                 option,
-                 i, j;
-
-             for (i = 0; i < this[0].elements.length; i++) {
-                 elem = this[0].elements[i];
-                 if (elem.name) {
-                     nodeName = elem.nodeName.toLowerCase();
-                     param = '';
-
-                     if (nodeName === 'input' && (elem.type === 'checkbox' || elem.type === 'radio')) {
-                         if (!elem.checked) {
-                             continue;
-                         }
-                     }
-                     if (nodeName === 'select') {
-                         for (j = 0; j < elem.options.length; j++) {
-                             option = elem.options[j];
-                             if (option.selected) {
-                                 var value = option.value;
-                                 if (param !== '') {
-                                     param += '&'
-                                 }
-                                 param += encodeURIComponent(elem.name) + '=' + encodeURIComponent(value)
-                             }
-                         }
-                     } else {
-                         param = encodeURIComponent(elem.name) + '=' + encodeURIComponent(elem.value)
-                     }
-
-                     if (data !== '') {
-                         data += '&'
-                     }
-                     data += param
-                 }
-             }
-             return data;
-         }
+        initXhr: function () {
+            var Xmlxhr = window.XMLHttpRequest;
+            return Xmlxhr ? new Xmlxhr() : new window.ActiveXObject('Microsoft.XMLHTTP');
+        },
+        xobj: function () {
+            return new this.initXhr;
+        },
+        xhr: function (params, url, callback) {
+            var xhr = new this.initXhr;
+            return (function () {
+                xhr.open('POST', url, true);
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xhr.setRequestHeader('X_REQUESTED_WITH', 'xmlhttprequest');
+                xhr.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            callback(this.responseText);
+                        }
+                    }
+                };
+                xhr.onerror = function () {
+                    //console.error('Network error');
+                };
+                xhr.send(params);
+            }());
+        }
     };
 
-    function jSpine(params) {
-        return new Lib(params);
-    }
-
-    function Lib(selector) {
+    function Sel(s) {
         var els, chr, i;
-        if (selector === undefined) {
+        if (s === undefined) {
             return;
         }
-        if (typeof selector === 'string') {
-            chr = selector.substr(1);
-            if (selector[0] === '#') {
+        if (typeof s === 'string') {
+            chr = s.substr(1);
+            if (s[0] === '#') {
                 els = document.getElementById(chr);
                 this[0] = els;
                 this.length = 1;
                 return this;
             }
             els = document.getElementsByClassName(chr);
-        } else if (selector.length) {
-            els = selector;
+        } else if (s.length) {
+            els = s;
         } else {
-            els = [selector];
+            els = [s];
         }
 
         for (i = 0; i < els.length; i++) {
@@ -394,9 +422,8 @@
         return this;
     }
 
-    function XhrObj() {
-        var Xmlxhr = window.XMLHttpRequest;
-        return Xmlxhr ? new Xmlxhr() : new window.ActiveXObject('Microsoft.XMLHTTP');
+    function jSpine(params) {
+        return new Sel(params);
     }
 
     z.$ = jSpine;
