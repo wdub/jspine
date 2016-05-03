@@ -1,4 +1,4 @@
-<h1>jSpine v1.3.2</h1>
+<h1>jSpine v1.3.3</h1>
 Yet another fast and lightweight Javascript library.
 
 <h3>Usage</h3>
