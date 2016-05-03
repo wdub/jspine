@@ -298,25 +298,23 @@
                 return function (evt, dgt, fn) {
                     var cb, nme;
 
-                    if (typeof dgt === 'string') {
-                        cb = fn;
-                        nme = dgt.substr(1)
-                    } else {
-                        cb = dgt;
-                        return cb(evt);
-                    }
-
                     var delegate = function (ev) {
                         var tg = ev.target,
                             cs;
 
-                        if (dgt[0] === '.') {
-                            cs = tg.className.split(' ');
-                        } else if (dgt[0] === '#') {
-                            cs = tg.id;
+                        if (typeof dgt !== 'string') {
+                            return dgt(ev, tg);
                         } else {
-                            cs = tg.nodeName.toLowerCase();
-                            nme = dgt.substr(0);
+                            cb = fn;
+                            nme = dgt.substr(1);
+                            if (dgt[0] === '.') {
+                                cs = tg.className.split(' ');
+                            } else if (dgt[0] === '#') {
+                                cs = tg.id;
+                            } else {
+                                cs = tg.nodeName.toLowerCase();
+                                nme = dgt.substr(0);
+                            }
                         }
 
                         if (cs.indexOf(nme) !== -1) {
