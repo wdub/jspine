@@ -92,4 +92,5 @@ $('.xhr-btn').on('click', function (e) {
 
 <h3>Demo</h3>
 [jSpine examples](http://jspine.techlabs.ro/)
+
 [Test on CodePen](http://codepen.io/wdub/pen/grZrea)
