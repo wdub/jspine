@@ -3,7 +3,7 @@
  /* Licence : GNU GENERAL PUBLIC LICENSE Version 3
  /* GitHub : github.com/wdub/jspine
  /* Demo : jspine.techlabs.ro
- /* Version : v1.3.3
+ /* Version : v1.3.4
  */
 (function (z) {
     'use strict';
@@ -14,8 +14,9 @@
             return this;
         },
         map: function (callback) {
-            var results = [], j;
-            for (j = 0; j < this.length; j++) {
+            var results = [], j, ln;
+            ln = this.length;
+            for (j = 0; j < ln; j++) {
                 results.push(callback.call(this, this[j], j));
             }
             return results;
@@ -57,8 +58,9 @@
                 return this.forEach(function (el) {
                     var elcls = el.className,
                         cnew = '',
-                        i;
-                    for (i = 0; i < clsToAdd.length; i++) {
+                        i, cl;
+                    cl = clsToAdd.length;
+                    for (i = 0; i < cl; i++) {
                         if (elcls.indexOf(clsToAdd[i]) === -1) {
                             cnew += ' ' + clsToAdd[i];
                         }
@@ -84,8 +86,9 @@
                 return this.forEach(function (el) {
                     var elclasses = el.className.split(' '),
                         cnew = '',
-                        idx;
-                    for (idx = 0; idx < elclasses.length; idx++) {
+                        idx, cl;
+                    cl = elclasses.length;
+                    for (idx = 0; idx < cl; idx++) {
                         if (clazz.indexOf(elclasses[idx]) === -1) {
                             cnew += ' ' + elclasses[idx];
                         }
@@ -137,8 +140,9 @@
         },
         prepend: function (els) {
             return this.forEach(function (parEl, i) {
-                var j;
-                for (j = els.length - 1; j > -1; j--) {
+                var j, el;
+                el = els.length;
+                for (j = el - 1; j > -1; j--) {
                     parEl.insertBefore((i > 0) ? els[j].cloneNode(true) : els[j], parEl.firstChild);
                 }
             });
@@ -178,7 +182,7 @@
                 return el.parentNode.removeChild(el);
             });
         },
-        newel: function (tagName, attrs, appendit) {
+        newEl: function (tagName, attrs, appendit) {
             var el = jSpine([document.createElement(tagName)]),
                 key;
             if (attrs) {
@@ -254,35 +258,36 @@
         formData: function () {
             var data = '',
                 param = '',
-                elem,
+                el,
                 nodeName,
-                option,
-                i, j;
+                o;
+            var i, j, ol;
 
             for (i = 0; i < this[0].elements.length; i++) {
-                elem = this[0].elements[i];
-                if (elem.name) {
-                    nodeName = elem.nodeName.toLowerCase();
+                el = this[0].elements[i];
+                if (el.name) {
+                    nodeName = el.nodeName.toLowerCase();
                     param = '';
 
-                    if (nodeName === 'input' && (elem.type === 'checkbox' || elem.type === 'radio')) {
-                        if (!elem.checked) {
+                    if (nodeName === 'input' && (el.type === 'checkbox' || el.type === 'radio')) {
+                        if (!el.checked) {
                             continue;
                         }
                     }
                     if (nodeName === 'select') {
-                        for (j = 0; j < elem.options.length; j++) {
-                            option = elem.options[j];
-                            if (option.selected) {
-                                var value = option.value;
+                        ol = el.options.length;
+                        for (j = 0; j < ol; j++) {
+                            o = el.options[j];
+                            if (o.selected) {
+                                var value = o.value;
                                 if (param !== '') {
                                     param += '&'
                                 }
-                                param += encodeURIComponent(elem.name) + '=' + encodeURIComponent(value)
+                                param += encodeURIComponent(el.name) + '=' + encodeURIComponent(value)
                             }
                         }
                     } else {
-                        param = encodeURIComponent(elem.name) + '=' + encodeURIComponent(elem.value)
+                        param = encodeURIComponent(el.name) + '=' + encodeURIComponent(el.value)
                     }
 
                     if (data !== '') {
@@ -366,15 +371,15 @@
                 });
             };
         }()),
-        initXhr: function () {
+        initXhr: (function () {
             var Xmlxhr = window.XMLHttpRequest;
             return Xmlxhr ? new Xmlxhr() : new window.ActiveXObject('Microsoft.XMLHTTP');
-        },
+        }()),
         xobj: function () {
             return new this.initXhr;
         },
         xhr: function (params, url, callback) {
-            var xhr = new this.initXhr;
+            var xhr = this.initXhr;
             return (function () {
                 xhr.open('POST', url, true);
                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -395,7 +400,7 @@
     };
 
     function Sel(s) {
-        var els, chr, i;
+        var els, chr, i, cl;
         if (s === undefined) {
             return;
         }
@@ -414,10 +419,12 @@
             els = [s];
         }
 
-        for (i = 0; i < els.length; i++) {
+        cl = els.length;
+
+        for (i = 0; i < cl; i++) {
             this[i] = els[i];
         }
-        this.length = els.length;
+        this.length = cl;
         return this;
     }
 
