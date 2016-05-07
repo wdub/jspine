@@ -79,7 +79,7 @@ $('.xhr-btn').on('click', function (e) {
 * __show__          - display an element
 * __hide__          - hide an element
 * __remove__        - remove one or more elements
-* __newel__         - create a new element
+* __newEl__         - create a new element
 * __empty__         - remove all child nodes
 * __loader__        - display or hide an animation(GIF or CSS keyframes required)
 * __message__       - display or hide a custom message
