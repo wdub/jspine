@@ -7,42 +7,71 @@
     <script src="../src/jspine.js"></script>
 </head>
 <body>
-<div id="buttons">
-    <button class="btn btn-show">Show list</button>
-    <button class="btn btn-hide">Hide list</button>
-    <button class="btn btn-toggle">Toggle list</button>
+<h3>Event handling</h3>
+<button class="toggle">Toggle</button>
+<div class="content">
+    This will be shown/hidden
 </div>
 
-<div class="clear"></div>
+<h3>Method chaining</h3>
+<button class="show-content">Add text and show</button>
+<div class="more-content"></div>
 
-<div class="mylist">
-    <ul>
-        <li class="list l1">L1</li>
-        <li class="list l2">L2</li>
-        <li class="list l3">L3</li>
-        <li class="list l4">L4</li>
-    </ul>
-</div>
+<h3>Create and append elements</h3>
+<button class="add-new">Add</button>
+<ul class="ulist">
+    <li>Element 1</li>
+</ul>
+
+<h3>Event delegation</h3>
+<ul class="container">
+    <li class="l1">L1</li>
+    <li class="l2">
+        <span>Title 1</span>
+    </li>
+    <li class="l3">
+        <ul>
+            <li class="sub sub1">Subtitle 1 - click me</li>
+            <li class="sub sub2">Subtitle 2 - click me</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>XMLHttpRequest</h3>
+<button class="xhr-btn">Response</button>
+<p class="response"></p>
 
 <script>
     (function () {
-        var myList = $('.mylist');
-
-        $('.btn-show').on('click', function (ev) {
-            ev.preventDefault();
-            myList.show();
+        $('.toggle').on('click', function () {
+            $('.content').toggle();
         });
 
-        $('.btn-hide').on('click', function (ev) {
-            ev.preventDefault();
-            myList.hide();
+        // method chaining
+        $('.show-content').on('click', function () {
+            $('.more-content').text('jSpine is awesome').show();
         });
 
-        $('.btn-toggle').on('click', function (ev) {
-            ev.preventDefault();
-            myList.toggle();
+        // create elements
+        $('.add-new').on('click', function () {
+            $('.ulist').newEl('li', {
+                'text': 'li text',
+                'li-class': 'className'
+            }, true);
         });
 
+        // event delegation
+        $('.container').on('click', '.sub', function (ev, clicked) {
+            ev.preventDefault();
+            clicked.style.color = 'red';
+        });
+
+        // XMLHttpRequest
+        $('.xhr-btn').on('click', function () {
+            $().xhr('param=demo', './file.txt', function (response) {
+                $('.response').text(response);
+            })
+        });
     }());
 </script>
 </body>
