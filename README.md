@@ -94,3 +94,5 @@ $('.xhr-btn').on('click', function (e) {
 [jSpine examples](http://jspine.techlabs.ro/)
 
 [Test on CodePen](http://codepen.io/wdub/pen/grZrea)
+
+jSpine is now available on [jsDelivr CDN](http://www.jsdelivr.com/projects/jspine)
