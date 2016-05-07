@@ -13,6 +13,9 @@ html, body {
 #buttons {
     display: inline-block;
 }
-.mylist {
+.content {
     display: none;
+}
+.container > li:last-child {
+    list-style: none;
 }
