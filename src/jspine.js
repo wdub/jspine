@@ -405,14 +405,7 @@
             return;
         }
         if (typeof s === 'string') {
-            chr = s.substr(1);
-            if (s[0] === '#') {
-                els = document.getElementById(chr);
-                this[0] = els;
-                this.length = 1;
-                return this;
-            }
-            els = document.getElementsByClassName(chr);
+            els = document.querySelectorAll(s);
         } else if (s.length) {
             els = s;
         } else {
