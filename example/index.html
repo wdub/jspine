@@ -47,6 +47,15 @@
             $('.content').toggle();
         });
 
+        //Child finding and first selector
+        $('body').find('h3').first().addClass('red');
+
+        //last seleector
+        $('body').find('h3').last().addClass('red');
+
+        //Get parent element
+        $('span').parent().toggle();
+
         // method chaining
         $('.show-content').on('click', function () {
             $('.more-content').text('jSpine is awesome').show();
@@ -61,9 +70,9 @@
         });
 
         // event delegation
-        $('.container').on('click', '.sub', function (ev, clicked) {
+        $('.container').on('click', '.sub', function (ev) {
             ev.preventDefault();
-            clicked.style.color = 'red';
+            this.addClass('red');
         });
 
         // XMLHttpRequest

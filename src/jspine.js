@@ -205,6 +205,41 @@
             }
             return el;
         },
+        find: function(selector){
+            var children = [];
+            this.forEach(function (el) {
+                children = children.concat(Array.prototype.slice.call(el.querySelectorAll(selector)));
+            });
+
+            return new Sel(children);
+        },
+        parent: function(){
+            return this.mapOne(function(el){
+                var p = el.parentNode;
+                if(p === null){
+                    return new Sel([]);
+                }
+                else{
+                    return new Sel(p);
+                }
+            });
+        },
+        first: function(){
+            if(this.length > 0){
+                return new Sel(this[0]);
+            }
+            else{
+                return this;
+            }
+        },
+        last: function(){
+            if(this.length > 0){
+                return new Sel(this[this.length - 1]);
+            }
+            else{
+                return this;
+            }
+        },
         empty: function () {
             return this.forEach(function (el) {
                 while (el.firstChild) {
@@ -298,58 +333,29 @@
             }
             return data;
         },
-        on: (function () {
-            if (document.addEventListener) {
-                return function (evt, dgt, fn) {
-                    var nme;
-                    var delegate = function (ev) {
-                        var tg = ev.target,
-                            cs;
+        on: function(evt, dgt, fn){
 
-                        if (typeof dgt !== 'string') {
-                            return dgt(ev, tg);
-                        }
+            var listener = function(evt){
 
-                        nme = dgt.substr(1);
-                        if (dgt[0] === '.') {
-                            cs = tg.className.split(' ');
-                        } else if (dgt[0] === '#') {
-                            cs = tg.id;
-                        } else {
-                            cs = tg.nodeName.toLowerCase();
-                            nme = dgt.substr(0);
-                        }
 
-                        if (cs.indexOf(nme) === -1) {
-                            ev.preventDefault();
-                            ev.stopPropagation();
-                            return;
-                        }
-                        return fn(ev, tg);
-                    };
-
-                    return this.forEach(function (el) {
-                        if (el === null) {
-                            return;
-                        }
-                        el.addEventListener(evt, delegate, false);
-                    });
-                };
+                if(typeof dgt == "function"){
+                    var target = $(this);
+                    dgt.call(target, evt);
+                }
+                else{
+                    var target = $(this).find(dgt);
+                    fn.call(target, evt);
+                }
             }
-            if (document.attachEvent) {
-                return function (evt, fn) {
-                    return this.forEach(function (el) {
-                        el.attachEvent('on' + evt, fn);
-                    });
-                };
-            }
-            return function (evt, fn) {
-                return this.forEach(function (el) {
-                    el['on' + evt] = fn;
-                });
-            };
 
-        }()),
+            return this.forEach(function (el) {
+                if (el === null) {
+                    return;
+                }
+
+                el.addEventListener(evt, listener, false);
+            });
+        },
         off: (function () {
             if (document.removeEventListener) {
                 return function (evt, fn) {
@@ -406,7 +412,7 @@
         }
         if (typeof s === 'string') {
             els = document.querySelectorAll(s);
-        } else if (s.length) {
+        } else if (typeof s.length !== "undefined") {
             els = s;
         } else {
             els = [s];
