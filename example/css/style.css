@@ -19,3 +19,7 @@ html, body {
 .container > li:last-child {
     list-style: none;
 }
+
+.red{
+    color: red;
+}
