@@ -45,9 +45,9 @@ $('.toggle').on('click', function(e){
 </ul>
 ```
 ```javascript
-$('.container').on('click', '.sub', function (ev, clicked) {
+$('.container').on('click', '.sub', function (ev) {
     ev.preventDefault();
-    $(clicked).hide();
+    $(this).hide();
 });
 ```
 
