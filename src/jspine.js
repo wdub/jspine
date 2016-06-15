@@ -333,6 +333,16 @@
             }
             return data;
         },
+        indexOf: function(toFind){
+            var match = -1;
+            this.forEach(function(el, index){
+                if(toFind === el){
+                    match = index;
+                }
+            });
+
+            return match;
+        },
         on: function(evt, dgt, fn){
 
             var listener = function(evt){
@@ -344,7 +354,10 @@
                 }
                 else{
                     var target = $(this).find(dgt);
-                    fn.call(target, evt);
+                    if(target.indexOf(evt.target) != -1){
+                        fn.call($(evt.target), evt);
+                    }
+
                 }
             }
 
